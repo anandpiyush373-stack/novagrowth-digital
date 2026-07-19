@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaGrowth Digital | We Grow Brands. You Grow Your Business.</title>
+<meta name="description" content="NovaGrowth Digital — a modern digital marketing agency in Delhi, India helping businesses grow online through SEO, paid ads, social media and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1020;
+    --bg-alt: #0e1428;
+    --accent: #8B5CF6;
+    --accent-2: #22D3EE;
+    --accent-soft: rgba(139,92,246,.16);
+    --text: #E8E9F3;
+    --text-dim: #9AA1C4;
+    --line: rgba(154,161,196,.16);
+    --glass: rgba(255,255,255,.04);
+    --glass-strong: rgba(255,255,255,.07);
+    --radius: 18px;
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Sora',sans-serif;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  section{position:relative;padding:140px 8vw;scroll-margin-top:90px;}
+  @media(max-width:768px){section{padding:90px 6vw;}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent-2);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent-2);display:inline-block;}
+  .section-head{max-width:680px;margin-bottom:64px;}
+  .section-head h2{font-size:clamp(2rem,4vw,3rem);font-weight:600;color:#fff;}
+  .section-head p{color:var(--text-dim);margin-top:16px;font-size:1.05rem;}
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  #cursor-dot, #cursor-ring{
+    position:fixed; top:0; left:0; pointer-events:none; z-index:9999;
+    border-radius:50%; transform:translate(-50%,-50%);
+    transition:opacity .2s ease;
+  }
+  #cursor-dot{width:6px;height:6px;background:var(--accent-2);}
+  #cursor-ring{width:34px;height:34px;border:1px solid rgba(139,92,246,.6);transition:width .2s,height .2s,border-color .2s, transform .05s linear;}
+  body.no-cursor #cursor-dot,body.no-cursor #cursor-ring{display:none;}
+  @media(hover:none){#cursor-dot,#cursor-ring{display:none;}}
+
+  /* ---------- LOADER ---------- */
+  #loader{
+    position:fixed;inset:0;z-index:10000;background:var(--bg);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+    transition:opacity .6s var(--ease), visibility .6s var(--ease);
+  }
+  #loader.hidden{opacity:0;visibility:hidden;}
+  .loader-mark{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.6rem;letter-spacing:-.02em;color:#fff;}
+  .loader-mark span{color:var(--accent);}
+  .loader-bar{width:200px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+  .loader-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));animation:loadbar 1.4s var(--ease) forwards;}
+  @keyframes loadbar{to{width:100%;}}
+
+  /* ---------- BACKGROUND FX ---------- */
+  .bg-mesh{
+    position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(139,92,246,.22), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(34,211,238,.14), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(139,92,246,.16), transparent 50%),
+      var(--bg);
+    background-size:200% 200%;
+    animation:meshmove 22s ease-in-out infinite;
+  }
+  @keyframes meshmove{
+    0%{background-position:0% 0%;}
+    50%{background-position:100% 60%;}
+    100%{background-position:0% 0%;}
+  }
+  #particles{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+  .particle{position:absolute;border-radius:50%;background:rgba(139,92,246,.5);filter:blur(.5px);animation:floaty linear infinite;}
+  @keyframes floaty{
+    0%{transform:translateY(0) translateX(0);opacity:0;}
+    10%{opacity:.7;}
+    90%{opacity:.5;}
+    100%{transform:translateY(-110vh) translateX(20px);opacity:0;}
+  }
+
+  /* ---------- NAVBAR ---------- */
+  #navbar{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:22px 8vw;
+    display:flex;align-items:center;justify-content:space-between;
+    background:transparent;
+    transition:background .4s var(--ease), padding .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  #navbar.scrolled{
+    background:rgba(11,16,32,.72);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    padding:14px 8vw;
+    border-bottom:1px solid var(--line);
+  }
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;color:#fff;display:flex;align-items:center;gap:8px;}
+  .logo i{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);}
+  .nav-links{display:flex;gap:34px;align-items:center;}
+  .nav-links a{
+    font-size:.92rem;color:var(--text-dim);position:relative;padding:4px 0;
+    transition:color .25s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--accent-2);
+    transition:width .3s var(--ease);
+  }
+  .nav-links a:hover{color:#fff;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    padding:10px 22px;border-radius:999px;background:var(--accent);color:#fff;
+    font-size:.88rem;font-weight:600;box-shadow:0 0 0 rgba(139,92,246,0);
+    transition:box-shadow .3s,transform .3s;
+  }
+  .nav-cta:hover{box-shadow:0 0 26px rgba(139,92,246,.6);transform:translateY(-2px);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1100;background:none;border:none;}
+  .hamburger span{width:26px;height:2px;background:#fff;transition:.35s var(--ease);}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media(max-width:900px){
+    .nav-links{
+      position:fixed;top:0;right:0;height:100vh;width:min(78vw,320px);
+      background:rgba(11,16,32,.97);backdrop-filter:blur(20px);
+      flex-direction:column;justify-content:center;align-items:flex-start;
+      padding:40px;gap:26px;
+      transform:translateX(100%);transition:transform .45s var(--ease);
+      border-left:1px solid var(--line);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{font-size:1.1rem;}
+    .hamburger{display:flex;}
+    .nav-cta{margin-top:10px;}
+  }
+
+  /* ---------- HERO ---------- */
+  #home{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding-top:120px;
+  }
+  .hero-inner{max-width:900px;opacity:0;transform:translateY(24px);animation:heroIn 1s var(--ease) .3s forwards;}
+  @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+  .hero-inner h1{
+    font-size:clamp(2.4rem,6.4vw,4.6rem);font-weight:700;color:#fff;line-height:1.05;
+    background:linear-gradient(180deg,#fff, #cfd3f0 70%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-tagline{
+    margin-top:20px;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--accent-2);font-weight:500;
+  }
+  .hero-desc{max-width:600px;margin:22px auto 0;color:var(--text-dim);font-size:1.05rem;}
+  .typewriter-line{
+    margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:1.05rem;color:#fff;
+    min-height:1.6em;
+  }
+  .typewriter-line .prefix{color:var(--text-dim);}
+  .typewriter-line .cursor-blink{display:inline-block;width:2px;background:var(--accent);margin-left:2px;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-ctas{display:flex;gap:18px;justify-content:center;margin-top:44px;flex-wrap:wrap;}
+  .btn{
+    padding:16px 32px;border-radius:999px;font-weight:600;font-size:.98rem;cursor:pointer;
+    border:1px solid transparent;transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent),#6D28D9);color:#fff;
+    box-shadow:0 0 0 rgba(139,92,246,0);
+  }
+  .btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 34px rgba(139,92,246,.55);}
+  .btn-secondary{
+    background:var(--glass);border-color:var(--line);color:#fff;backdrop-filter:blur(6px);
+  }
+  .btn-secondary:hover{transform:translateY(-3px) scale(1.03);background:var(--glass-strong);border-color:var(--accent-2);}
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    color:var(--text-dim);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scroll-cue i{width:1px;height:34px;background:linear-gradient(var(--accent),transparent);animation:cueMove 1.8s ease-in-out infinite;}
+  @keyframes cueMove{0%,100%{transform:scaleY(1);opacity:.6;}50%{transform:scaleY(.5);opacity:1;}}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* ---------- WHY US ---------- */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:70px;}
+  @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+  .stat-card{
+    text-align:center;padding:34px 16px;border-radius:var(--radius);
+    background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);
+  }
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:#fff;}
+  .stat-num span{color:var(--accent-2);}
+  .stat-label{margin-top:8px;color:var(--text-dim);font-size:.88rem;}
+  .stats-note{text-align:center;color:var(--text-dim);font-size:.8rem;margin:-46px 0 60px;font-style:italic;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  @media(max-width:1100px){.feature-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.feature-grid{grid-template-columns:1fr;}}
+  .feature-card{
+    padding:34px 26px;border-radius:var(--radius);background:var(--glass);
+    border:1px solid var(--line);backdrop-filter:blur(10px);
+    transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
+  }
+  .feature-card:hover{transform:translateY(-8px);border-color:rgba(139,92,246,.5);box-shadow:0 16px 40px rgba(0,0,0,.35);}
+  .feature-icon{
+    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid rgba(139,92,246,.35);
+    margin-bottom:20px;color:var(--accent-2);
+  }
+  .feature-card h3{font-size:1.1rem;color:#fff;margin-bottom:10px;}
+  .feature-card p{color:var(--text-dim);font-size:.92rem;}
+
+  /* ---------- SERVICES ---------- */
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  @media(max-width:1000px){.service-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.service-grid{grid-template-columns:1fr;}}
+  .service-card{
+    position:relative;padding:38px 28px;border-radius:var(--radius);
+    background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.015));
+    border:1px solid var(--line);overflow:hidden;
+    transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s;
+  }
+  .service-card::before{
+    content:"";position:absolute;inset:-1px;border-radius:var(--radius);padding:1px;
+    background:linear-gradient(135deg,var(--accent),transparent 40%);
+    opacity:0;transition:opacity .4s;
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    pointer-events:none;
+  }
+  .service-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(139,92,246,.25);border-color:transparent;}
+  .service-card:hover::before{opacity:1;}
+  .service-icon{
+    width:56px;height:56px;border-radius:14px;background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;color:var(--accent-2);margin-bottom:22px;
+    transition:transform .5s var(--ease);
+  }
+  .service-card:hover .service-icon{transform:rotate(-8deg) scale(1.12);}
+  .service-card h3{color:#fff;font-size:1.2rem;margin-bottom:10px;}
+  .service-card p{color:var(--text-dim);font-size:.92rem;}
+  .service-num{
+    position:absolute;top:24px;right:28px;font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;color:rgba(255,255,255,.25);
+  }
+
+  /* ---------- PROCESS ---------- */
+  .timeline{position:relative;max-width:920px;margin:0 auto;}
+  .timeline-line{
+    position:absolute;left:29px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.08);
+  }
+  .timeline-line i{
+    position:absolute;left:0;top:0;width:100%;height:0%;background:linear-gradient(var(--accent),var(--accent-2));
+    transition:height 1.4s var(--ease);
+  }
+  @media(max-width:700px){.timeline-line{left:19px;}}
+  .step{display:flex;gap:30px;position:relative;padding-bottom:64px;}
+  .step:last-child{padding-bottom:0;}
+  .step-marker{
+    width:60px;height:60px;flex-shrink:0;border-radius:50%;
+    background:var(--bg-alt);border:2px solid rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text-dim);z-index:2;
+    transition:border-color .5s, color .5s, box-shadow .5s;
+  }
+  @media(max-width:700px){.step-marker{width:40px;height:40px;font-size:.85rem;}}
+  .step.active .step-marker{border-color:var(--accent);color:#fff;box-shadow:0 0 22px rgba(139,92,246,.55);}
+  .step-body{padding-top:8px;}
+  .step-body h3{color:#fff;font-size:1.3rem;margin-bottom:8px;}
+  .step-body p{color:var(--text-dim);max-width:520px;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-wrap{max-width:760px;margin:0 auto;position:relative;min-height:260px;}
+  .testi-label{text-align:center;}
+  .testi-card{
+    position:absolute;inset:0;padding:44px 40px;border-radius:var(--radius);
+    background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);
+    text-align:center;opacity:0;transform:translateX(30px);
+    transition:opacity .6s var(--ease), transform .6s var(--ease);
+    pointer-events:none;
+  }
+  .testi-card.active{opacity:1;transform:translateX(0);pointer-events:auto;}
+  .testi-stars{color:#FBBF24;letter-spacing:3px;margin-bottom:18px;font-size:1.1rem;}
+  .testi-quote{font-size:1.15rem;color:#fff;font-style:italic;line-height:1.7;}
+  .testi-person{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:26px;}
+  .avatar{
+    width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;
+  }
+  .testi-name{color:#fff;font-weight:600;font-size:.95rem;}
+  .testi-role{color:var(--text-dim);font-size:.8rem;}
+  .testi-dots{display:flex;justify-content:center;gap:10px;margin-top:290px;}
+  .testi-dots button{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:background .3s,transform .3s;}
+  .testi-dots button.active{background:var(--accent);transform:scale(1.3);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start;}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{color:var(--text-dim);font-size:1.05rem;margin-bottom:18px;}
+  .value-item{display:flex;gap:16px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--line);}
+  .value-item:last-child{border-bottom:none;}
+  .check{
+    width:30px;height:30px;border-radius:50%;background:var(--accent-soft);border:1px solid rgba(139,92,246,.5);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent-2);font-weight:700;
+    transform:scale(0);transition:transform .5s var(--ease);
+  }
+  .value-item.visible .check{transform:scale(1);}
+  .value-item h4{color:#fff;font-size:1.05rem;margin-bottom:4px;}
+  .value-item p{color:var(--text-dim);font-size:.92rem;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-wrap{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;
+    background:linear-gradient(160deg,rgba(139,92,246,.09),rgba(255,255,255,.02));
+    border:1px solid var(--line);border-radius:24px;padding:64px;
+  }
+  @media(max-width:900px){.contact-wrap{grid-template-columns:1fr;padding:38px 26px;gap:36px;}}
+  .contact-copy h2{font-size:clamp(1.8rem,3.6vw,2.6rem);color:#fff;font-weight:600;}
+  .contact-copy p{color:var(--text-dim);margin-top:16px;font-size:1.05rem;max-width:420px;}
+  .contact-whatsapp{
+    margin-top:34px;display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;
+    background:#1F8B4C;color:#fff;font-weight:600;font-size:.92rem;transition:transform .3s,box-shadow .3s;
+  }
+  .contact-whatsapp:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(31,139,76,.45);}
+  form{display:flex;flex-direction:column;gap:18px;position:relative;}
+  .field label{display:block;font-size:.82rem;color:var(--text-dim);margin-bottom:8px;}
+  .field input, .field select{
+    width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);color:#fff;font-family:'Sora',sans-serif;font-size:.95rem;
+    transition:border-color .3s, box-shadow .3s;
+  }
+  .field input::placeholder{color:rgba(232,233,243,.35);}
+  .field input:focus, .field select:focus{
+    outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.22);
+  }
+  .field select option{background:#0B1020;}
+  .error-msg{color:#FCA5A5;font-size:.78rem;margin-top:6px;min-height:1em;}
+  .submit-btn{margin-top:8px;width:100%;justify-content:center;}
+  #success-msg{
+    position:absolute;inset:0;background:rgba(11,16,32,.96);border-radius:16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;
+    opacity:0;pointer-events:none;transform:scale(.94);transition:opacity .5s var(--ease), transform .5s var(--ease);
+    padding:20px;
+  }
+  #success-msg.show{opacity:1;pointer-events:auto;transform:scale(1);}
+  .success-check{
+    width:64px;height:64px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;color:var(--accent-2);font-size:1.8rem;
+    animation:pop .5s var(--ease);
+  }
+  @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+  #success-msg p{color:var(--text-dim);max-width:280px;font-size:.95rem;}
+  #success-msg h4{color:#fff;font-size:1.2rem;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:70px 8vw 34px;border-top:1px solid var(--line);}
+  .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;margin-bottom:50px;}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{color:var(--text-dim);max-width:300px;font-size:.92rem;}
+  .footer-col h5{color:#fff;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;}
+  .footer-col p, .footer-col a{display:block;color:var(--text-dim);font-size:.92rem;margin-bottom:10px;transition:color .3s;}
+  .footer-col a:hover{color:var(--accent-2);}
+  .socials{display:flex;gap:14px;}
+  .socials a{
+    width:40px;height:40px;border-radius:50%;background:var(--glass);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--text-dim);
+    transition:background .3s,color .3s,transform .3s;
+  }
+  .socials a:hover{background:var(--accent);color:#fff;transform:translateY(-3px);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    padding-top:26px;border-top:1px solid var(--line);color:var(--text-dim);font-size:.82rem;
+  }
+
+  ::selection{background:var(--accent);color:#fff;}
+  :focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-mark">Nova<span>Growth</span></div><div class="loader-bar"><i></i></div></div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<div class="bg-mesh"></div>
+<div id="particles"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#home" class="logo"><i></i>NovaGrowth <span style="color:var(--accent-2)">Digital</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="nav-link">Home</a></li>
+    <li><a href="#why-us" class="nav-link">Why Us</a></li>
+    <li><a href="#services" class="nav-link">Services</a></li>
+    <li><a href="#process" class="nav-link">Process</a></li>
+    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <p class="eyebrow">Digital Marketing Agency · Delhi, India</p>
+    <h1>NovaGrowth Digital</h1>
+    <p class="hero-tagline">"We Grow Brands. You Grow Your Business."</p>
+    <p class="hero-desc">We help ambitious businesses grow online with data-backed digital marketing — building visibility, driving qualified traffic, and turning attention into real revenue.</p>
+    <p class="typewriter-line"><span class="prefix">We specialize in&nbsp;</span><span id="typewriter"></span><span class="cursor-blink">&nbsp;</span></p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Book a Free Consultation</a>
+      <a id="hero-whatsapp" href="#" target="_blank" rel="noopener" class="btn btn-secondary">WhatsApp Us</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><i></i>Scroll</div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="section-head reveal">
+    <p class="eyebrow">Why Us</p>
+    <h2>Why Choose NovaGrowth Digital?</h2>
+    <p>A demo agency profile built to showcase what a results-focused partnership could look like.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card reveal"><div class="stat-num"><span data-target="50" data-suffix="+">0</span></div><div class="stat-label">Clients Served</div></div>
+    <div class="stat-card reveal"><div class="stat-num">₹<span data-target="10" data-suffix="L+">0</span></div><div class="stat-label">Revenue Generated</div></div>
+    <div class="stat-card reveal"><div class="stat-num"><span data-target="100" data-suffix="+">0</span></div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-card reveal"><div class="stat-num"><span data-target="3" data-suffix="+">0</span></div><div class="stat-label">Years Experience</div></div>
+  </div>
+  <p class="stats-note reveal">*Sample figures shown for demonstration purposes on this example agency website.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+      </div>
+      <h3>Proven Results</h3>
+      <p>We focus on strategies designed to deliver measurable business growth.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <h3>24/7 Support</h3>
+      <p>Stay connected with our team whenever you need assistance.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-6a4 4 0 014-4h8a4 4 0 014 4v6"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h3>Custom Strategy</h3>
+      <p>Every business gets a strategy tailored to its unique goals.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg>
+      </div>
+      <h3>Fast Delivery</h3>
+      <p>We value your time and deliver projects efficiently.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-head reveal">
+    <p class="eyebrow">Services</p>
+    <h2>What We Do</h2>
+    <p>Full-funnel digital marketing services built to take your brand from visibility to revenue.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+      <h3>Social Media Marketing</h3>
+      <p>Build a strong social presence and connect with your target audience.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">02</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+      <h3>Search Engine Optimization</h3>
+      <p>Improve your online visibility and attract more organic traffic.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">03</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-7-7 18-2.5-7.5L3 11z"/></svg></div>
+      <h3>Google &amp; Meta Ads</h3>
+      <p>Reach the right audience with targeted paid advertising campaigns.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">04</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H8l-4 4V4z"/></svg></div>
+      <h3>Content Marketing</h3>
+      <p>Create engaging content that builds trust and drives customer action.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">05</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9 5.8 20.3l1.6-6.8L2.2 8.9l6.9-.6L12 2z"/></svg></div>
+      <h3>Branding &amp; Creative Design</h3>
+      <p>Build a memorable brand identity with professional visual content.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">06</span>
+      <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg></div>
+      <h3>Lead Generation</h3>
+      <p>Turn online traffic into qualified leads and potential customers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-head reveal">
+    <p class="eyebrow">Our Process</p>
+    <h2>How It Works</h2>
+    <p>A simple, transparent four-step process from first call to measurable growth.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-line"><i id="timelineFill"></i></div>
+    <div class="step reveal" data-step>
+      <div class="step-marker">01</div>
+      <div class="step-body"><h3>Discovery Call</h3><p>We understand your business, goals, audience, and challenges.</p></div>
+    </div>
+    <div class="step reveal" data-step>
+      <div class="step-marker">02</div>
+      <div class="step-body"><h3>Strategy</h3><p>We create a customized digital marketing strategy for your business.</p></div>
+    </div>
+    <div class="step reveal" data-step>
+      <div class="step-marker">03</div>
+      <div class="step-body"><h3>Execution</h3><p>Our team implements campaigns, content, advertising, and optimization.</p></div>
+    </div>
+    <div class="step reveal" data-step>
+      <div class="step-marker">04</div>
+      <div class="step-body"><h3>Results</h3><p>We track performance, analyze results, and continuously improve the strategy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-head reveal" style="margin:0 auto 50px;text-align:center;">
+    <p class="eyebrow" style="justify-content:center;">Sample Client Feedback</p>
+    <h2>What Clients Say</h2>
+    <p style="margin-left:auto;margin-right:auto;">Illustrative testimonials created for this demo website.</p>
+  </div>
+  <div class="testi-wrap reveal">
+    <div class="testi-card active" data-testi>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"NovaGrowth Digital helped us build a much stronger online presence. Their strategy and communication were excellent."</p>
+      <div class="testi-person"><div class="avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Sample Client Feedback</div></div></div>
+    </div>
+    <div class="testi-card" data-testi>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"The team understood our goals and created a strategy that was simple, clear, and effective."</p>
+      <div class="testi-person"><div class="avatar">A</div><div><div class="testi-name">Ananya Verma</div><div class="testi-role">Sample Client Feedback</div></div></div>
+    </div>
+    <div class="testi-card" data-testi>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Professional, creative, and easy to work with. We loved the overall experience."</p>
+      <div class="testi-person"><div class="avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Sample Client Feedback</div></div></div>
+    </div>
+  </div>
+  <div class="testi-dots" id="testiDots"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="eyebrow">About Us</p>
+      <h2 style="color:#fff;font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:600;margin-bottom:20px;">About NovaGrowth Digital</h2>
+      <p>NovaGrowth Digital is a modern digital marketing agency focused on helping businesses improve their online presence, reach the right audience, generate qualified leads, and grow their brand.</p>
+      <p>Based in Delhi, India, we work as an extension of your team — combining strategy, creative, and performance marketing to turn digital attention into real business growth.</p>
+    </div>
+    <div class="about-values">
+      <div class="value-item reveal">
+        <div class="check">✓</div>
+        <div><h4>Results Driven</h4><p>We focus on measurable growth and meaningful business outcomes.</p></div>
+      </div>
+      <div class="value-item reveal">
+        <div class="check">✓</div>
+        <div><h4>Transparency</h4><p>We believe in clear communication and honest collaboration.</p></div>
+      </div>
+      <div class="value-item reveal">
+        <div class="check">✓</div>
+        <div><h4>Client Success</h4><p>Your growth is at the heart of everything we do.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap reveal">
+    <div class="contact-copy">
+      <p class="eyebrow">Get In Touch</p>
+      <h2>Ready to Grow Your Business Online?</h2>
+      <p>Let's build a digital strategy that turns your goals into real growth.</p>
+      <a id="contact-whatsapp" href="#" target="_blank" rel="noopener" class="contact-whatsapp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.85.5 3.58 1.36 5.07L2 22l5.07-1.33A9.94 9.94 0 0012.02 22C17.55 22 22 17.52 22 12S17.55 2 12.02 2zm0 18.1c-1.64 0-3.17-.48-4.46-1.3l-.32-.19-3 .79.8-2.92-.21-.3A8.09 8.09 0 013.92 12c0-4.48 3.65-8.1 8.1-8.1 4.46 0 8.1 3.63 8.1 8.1s-3.64 8.1-8.1 8.1z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div style="position:relative;">
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required>
+          <div class="error-msg" id="err-name"></div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+          <div class="error-msg" id="err-phone"></div>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          <div class="error-msg" id="err-email"></div>
+        </div>
+        <div class="field">
+          <label for="service">Service Required</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option>Social Media Marketing</option>
+            <option>Search Engine Optimization</option>
+            <option>Google & Meta Ads</option>
+            <option>Content Marketing</option>
+            <option>Branding & Creative Design</option>
+            <option>Lead Generation</option>
+          </select>
+          <div class="error-msg" id="err-service"></div>
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Book Now</button>
+      </form>
+      <div id="success-msg">
+        <div class="success-check">✓</div>
+        <h4>Request Received</h4>
+        <p>Thank you! Your request has been received. Our team will contact you soon.</p>
+        <button class="btn btn-secondary" id="resetForm" type="button">Send Another</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#home" class="logo"><i></i>NovaGrowth <span style="color:var(--accent-2)">Digital</span></a>
+      <p>"We Grow Brands. You Grow Your Business."</p>
+      <div class="socials" style="margin-top:20px;">
+        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4V8h4v1.6A6 6 0 0116 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="mailto:novagrowthdigital@gmail.com">novagrowthdigital@gmail.com</a>
+      <a href="#" id="footer-whatsapp" target="_blank" rel="noopener">WhatsApp Us</a>
+      <p>Delhi, India</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 NovaGrowth Digital. All Rights Reserved.</span>
+    <span>Delhi, India</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const PHONE = ""; // TODO: add your WhatsApp number here, e.g. "91XXXXXXXXXX"
+  const waLink = PHONE
+    ? ("https://wa.me/" + PHONE + "?text=" + encodeURIComponent("Hi NovaGrowth Digital, I'd like to book a free consultation."))
+    : "https://wa.me/?text=" + encodeURIComponent("Hi NovaGrowth Digital, I'd like to book a free consultation.");
+  ["hero-whatsapp","contact-whatsapp","footer-whatsapp"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.href = waLink;
+  });
+
+  /* LOADER */
+  window.addEventListener("load", () => {
+    setTimeout(()=>{ document.getElementById("loader").classList.add("hidden"); }, 900);
+  });
+
+  /* CURSOR (desktop only) */
+  const isTouch = window.matchMedia("(hover: none)").matches;
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  if(isTouch){ document.body.classList.add("no-cursor"); }
+  else{
+    let rx=0, ry=0, mx=0, my=0;
+    window.addEventListener("mousemove", e=>{
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+"px"; dot.style.top = my+"px";
+    });
+    (function loop(){
+      rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+      ring.style.left = rx+"px"; ring.style.top = ry+"px";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a,button,input,select,.service-card,.feature-card").forEach(el=>{
+      el.addEventListener("mouseenter", ()=>{ ring.style.width="54px"; ring.style.height="54px"; ring.style.borderColor="rgba(34,211,238,.8)"; });
+      el.addEventListener("mouseleave", ()=>{ ring.style.width="34px"; ring.style.height="34px"; ring.style.borderColor="rgba(139,92,246,.6)"; });
+    });
+  }
+
+  /* PARTICLES */
+  const pWrap = document.getElementById("particles");
+  const count = window.innerWidth < 700 ? 18 : 34;
+  for(let i=0;i<count;i++){
+    const p = document.createElement("div");
+    p.className = "particle";
+    const size = Math.random()*4+1.5;
+    p.style.width = size+"px"; p.style.height = size+"px";
+    p.style.left = Math.random()*100+"vw";
+    p.style.bottom = "-10px";
+    p.style.animationDuration = (Math.random()*14+12)+"s";
+    p.style.animationDelay = (Math.random()*14)+"s";
+    pWrap.appendChild(p);
+  }
+
+  /* NAVBAR */
+  const navbar = document.getElementById("navbar");
+  window.addEventListener("scroll", ()=>{
+    navbar.classList.toggle("scrolled", window.scrollY > 40);
+  });
+
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("navLinks");
+  hamburger.addEventListener("click", ()=>{
+    const open = navLinks.classList.toggle("open");
+    hamburger.classList.toggle("open", open);
+    hamburger.setAttribute("aria-expanded", open);
+  });
+  document.querySelectorAll(".nav-link, .nav-cta").forEach(link=>{
+    link.addEventListener("click", ()=>{
+      navLinks.classList.remove("open");
+      hamburger.classList.remove("open");
+    });
+  });
+
+  /* IN-PAGE ANCHOR SCROLLING (robust, with sticky navbar offset) */
+  document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener("click", function(e){
+      const href = this.getAttribute("href");
+      if(!href || href === "#") return;
+      const target = document.querySelector(href);
+      if(!target) return;
+      e.preventDefault();
+      const navH = navbar.offsetHeight || 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - (navH + 10);
+      window.scrollTo({ top, behavior: "smooth" });
+      navLinks.classList.remove("open");
+      hamburger.classList.remove("open");
+    });
+  });
+
+  /* TYPEWRITER */
+  const services = ["Social Media Marketing","Search Engine Optimization","Paid Advertising"];
+  const twEl = document.getElementById("typewriter");
+  let sIdx=0, cIdx=0, deleting=false;
+  function typeLoop(){
+    const current = services[sIdx];
+    if(!deleting){
+      cIdx++;
+      twEl.textContent = current.slice(0,cIdx);
+      if(cIdx === current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      cIdx--;
+      twEl.textContent = current.slice(0,cIdx);
+      if(cIdx === 0){ deleting = false; sIdx = (sIdx+1) % services.length; }
+    }
+    setTimeout(typeLoop, deleting ? 40 : 75);
+  }
+  typeLoop();
+
+  /* SCROLL REVEAL */
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll(".reveal, .value-item").forEach(el=>revealObserver.observe(el));
+
+  /* COUNTERS */
+  const counters = document.querySelectorAll(".stat-num span[data-target]");
+  const counterObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || "";
+        const isInt = Number.isInteger(target);
+        let start = null;
+        const duration = 1600;
+        function step(ts){
+          if(!start) start = ts;
+          const progress = Math.min((ts-start)/duration, 1);
+          const eased = 1 - Math.pow(1-progress, 3);
+          const val = target*eased;
+          el.textContent = (isInt ? Math.floor(val) : val.toFixed(1)) + suffix;
+          if(progress < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, {threshold:0.5});
+  counters.forEach(c=>counterObserver.observe(c));
+
+  /* TIMELINE */
+  const steps = document.querySelectorAll("[data-step]");
+  const fill = document.getElementById("timelineFill");
+  const timelineObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("active");
+        const activeCount = document.querySelectorAll(".step.active").length;
+        fill.style.height = (activeCount/steps.length*100)+"%";
+      }
+    });
+  }, {threshold:0.5});
+  steps.forEach(s=>timelineObserver.observe(s));
+
+  /* TESTIMONIALS CAROUSEL */
+  const testis = document.querySelectorAll("[data-testi]");
+  const dotsWrap = document.getElementById("testiDots");
+  let testiIdx = 0;
+  testis.forEach((_,i)=>{
+    const b = document.createElement("button");
+    if(i===0) b.classList.add("active");
+    b.addEventListener("click", ()=>{ setTesti(i); resetTimer(); });
+    dotsWrap.appendChild(b);
+  });
+  function setTesti(i){
+    testis.forEach(t=>t.classList.remove("active"));
+    dotsWrap.querySelectorAll("button").forEach(d=>d.classList.remove("active"));
+    testis[i].classList.add("active");
+    dotsWrap.children[i].classList.add("active");
+    testiIdx = i;
+  }
+  let testiTimer = setInterval(()=>{ setTesti((testiIdx+1)%testis.length); }, 4000);
+  function resetTimer(){ clearInterval(testiTimer); testiTimer = setInterval(()=>{ setTesti((testiIdx+1)%testis.length); }, 4000); }
+
+  /* CONTACT FORM */
+  const form = document.getElementById("contactForm");
+  const successMsg = document.getElementById("success-msg");
+  const fields = {
+    name: {el: document.getElementById("name"), err: document.getElementById("err-name"), validate: v=>v.trim().length>=2 ? "" : "Please enter your full name."},
+    phone: {el: document.getElementById("phone"), err: document.getElementById("err-phone"), validate: v=>/^[\d\s()+-]{7,15}$/.test(v.trim()) ? "" : "Please enter a valid phone number."},
+    email: {el: document.getElementById("email"), err: document.getElementById("err-email"), validate: v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Please enter a valid email address."},
+    service: {el: document.getElementById("service"), err: document.getElementById("err-service"), validate: v=>v ? "" : "Please select a service."}
+  };
+  form.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    let valid = true;
+    Object.values(fields).forEach(f=>{
+      const msg = f.validate(f.el.value);
+      f.err.textContent = msg;
+      if(msg) valid = false;
+    });
+    if(!valid) return;
+    successMsg.classList.add("show");
+  });
+  document.getElementById("resetForm").addEventListener("click", ()=>{
+    successMsg.classList.remove("show");
+    form.reset();
+    Object.values(fields).forEach(f=> f.err.textContent = "");
+  });
+})();
+</script>
+</body>
+</html>
